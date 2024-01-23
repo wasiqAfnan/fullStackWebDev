@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Storage API</title>
+    <style>
+        #inputs {
+            width: 50%;
+            /* border: 2px solid black; */
+            margin: auto;
+            height: 20px;
+            margin-bottom: 10px;
+        }
+
+        #output {
+            width: 50%;
+            border: 2px solid rgb(255, 42, 42);
+            margin: auto;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- `sessionStorage` in JavaScript is a web storage API that allows you to store key-value pairs within the client's session. The data is accessible only for the duration of the page session and is automatically cleared when the session ends or the browser is closed. -->
+
+
+    <!-- `sessionStorage` in JavaScript stores data for the duration of a single browser session, clearing when the tab is closed. `localStorage` persists data across sessions until explicitly cleared or when the browser data is cleared. -->
+
+    <!-- Input Section -->
+    <div id="inputs">
+        <!-- Input field for Product Name -->
+        <input type="text" id="prodName" placeholder="Enter Product Name" size="30">
+        <!-- Input field for Product Price -->
+        <input type="number" id="prodPrice" placeholder="Enter Product Price" size="30">
+        <!-- Submit button to add product to the cart -->
+        <input type="submit" value="Add to Cart" onclick="addProdtoCart()">
+    </div>
+
+    <!-- Output Section -->
+    <!-- Displaying the output of the cart using JavaScript -->
+    <div id="output"></div>
+
+    <script>
+        // Function to add product to the cart
+        function addProdtoCart() {
+            // Checking if there is any item present in the session storage or not
+            let cart = sessionStorage.getItem("cartData");
+
+            if (cart == null) {
+                cart = [];
+            } else {
+                cart = JSON.parse(cart);
+            }
+
+            // Retrieving product name and price from the input fields
+            let prodName = document.querySelector("#prodName").value;
+            let prodPrice = document.querySelector("#prodPrice").value;
+
+            // Creating an object with product data
+            let productData = {
+                name: prodName,
+                price: prodPrice
+            }
+
+            // Adding the product data to the cart
+            cart.push(productData);
+
+            // Storing the updated cart data in session storage
+            sessionStorage.setItem("cartData", JSON.stringify(cart));
+
+            // Calling the function to display the updated cart data
+            showData();
+        }
+
+        // Initial call to show data when the page loads
+        showData();
+
+        // Function to display cart data
+        function showData() {
+            // Retrieving cart data from session storage
+            let cart = sessionStorage.getItem("cartData");
+            let output = document.querySelector("#output");
+
+            // Checking if the cart is empty or null
+            if (cart == null || cart.length == 0) {
+                output.innerHTML = "<h4> Cart is Empty </h4>";
+            } else {
+                let total = 0;
+                // Parsing the cart data from JSON format
+                cart = JSON.parse(cart);
+
+                // Creating a table to display cart data
+                table = "<table> <tr> <th>Product Name</th>" +
+                    "<th>Product Price</th> </tr>";
+
+                // Iterating through each product in the cart
+                for (let i = 0; i < cart.length; i++) {
+                    table += "<tr><td>" + cart[i].name + "</td>";
+                    table += "<td>" + cart[i].price + "/-" + "</td></tr>";
+                    total += parseFloat(cart[i].price);
+                }
+
+                // Displaying the total price in the table
+                table += "<tr><td>Total</td><td>" + total + "/-" + "</td></tr>"
+                table += "</table>"
+
+                // Displaying the table in the output div
+                output.innerHTML = table;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -6,6 +6,26 @@
     <title>File API</title>
 </head>
 <body>
-    
+    <!-- calling showFileData() when user give any input to the file input field -->
+    <input type="file" id="myFile" onchange="showFileData()">
+    <!-- details of the will print under this div container -->
+    <div id="output"></div>
+
+    <script>
+        function showFileData(){
+            // getting the file input and div tag
+            let file = document.querySelector("#myFile");
+            let div = document.querySelector("#output");
+            
+            // getting the necessary file info from the FILE API by callung filename.files array.
+            let fileName = file.files[0].name;
+            let fileSize = file.files[0].size;
+            let fileType = file.files[0].type;
+
+            //chnaging innerhtml of the div tag so that the output will be shown to the webpage
+            output.innerHTML="<h3>File name: "+fileName+"</h3>"+"<h3>File size: "+fileSize+"</h3>"+"<h3>File type: "+fileType+"</h3>"
+        }
+
+    </script>
 </body>
 </html>
