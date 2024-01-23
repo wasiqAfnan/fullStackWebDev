@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find My Location</title>
+</head>
+
+<body>
+    <button onclick="getLocation()">Get Your Location</button>
+    <div>
+        <h3 id="status"></h3>
+        <h1 id="location"></h1>
+    </div>
+    <script>
+        function getLocation() {
+            //getting status and location so that we can update it to the page
+            let status = document.getElementById("status");
+            let location = document.getElementById("location");
+
+            // checking if user giving the permission to access his/her location
+            if (!navigator.geolocation) {
+                // if user denied then print the following
+                location.innerHTML = "Failed or Permission Denied by the User"
+
+            }
+            else {
+                // if user allow the location then updating the status
+                status.innerHTML = "Status: Locating..."
+                // navigator.geolocation.getCurrentPosition get 2 parameters and both parameters are function. If it run succesfully then it runs only the first function else it run the second funtion
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+
+            //if navigator.geolocation.getCurrentPosition this function run succesfulluy then success() will run along with the data that passed by navigator.geolocation.getCurrentPosition function
+            function success(data) {
+                // getting desired data from the json
+                let latitude = data.coords.latitude;
+                let longitude = data.coords.longitude;
+
+                // updating the location
+                location.innerHTML = "Latitude: " + latitude + "<br>" + "Longitude: " + longitude;
+            }
+
+            //if navigator.geolocation.getCurrentPosition this function failed then error() will run
+            function error() {
+                // updating the status if any error occurs
+                status.innerHTML = "Status: Failed or Permission denied"
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

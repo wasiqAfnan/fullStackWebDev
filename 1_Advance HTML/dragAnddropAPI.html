@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop API</title>
+    <style>
+        #container {
+            width: 80vw;
+            height: 30vh;
+            background-color: antiquewhite;
+            margin-bottom: 5%;
+        }
+
+        #img {
+            margin-top: 10px; /* Add a margin to the image for better visibility */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container" ondragover="allowDrag(event)" ondrop="drop(event)">
+        <!-- This div is where the image is being dropped. That is why I have set two functions allowDrag(event) and drop(event). When the image comes into the box allowDrag() is being called with the event and when image is dropped drop() will be called with an event -->
+    </div>
+    <!-- this is the mage in order drag it we should set draggable=true and also I have called dragStart(event) function when user drag the image -->
+    <img id="img" src="./flower.jpg" alt="myImage" draggable="true" ondragstart="dragStart(event)" width="250" height="250">
+
+    <script>
+        // this function will allow dropping to the div by preventing any default behaviour on hover
+        function allowDrag(e) {
+            e.preventDefault();
+        }
+
+        //  this is the function that first called. In this we are using dataTransfer API to pass the id of the image so that we can append it inside the div tag.
+        function dragStart(e) {
+            // console.log("started");
+            e.dataTransfer.setData("text", e.target.id);
+        }
+
+        //This is the last function. In this we first preventing any default behaviour and then get the data that was set by the dragStart funtion, In which we set the id of the image tag. and now in this function we are getting the same id of the image tag. At last, we are appending the image in the div tag using appendChild() and passing it the image id.
+        function drop(e) {
+            e.preventDefault();
+            let id = e.dataTransfer.getData("text");
+            console.log("end");
+            e.target.appendChild(document.getElementById(id));
+        }
+    </script>
+</body>
+</html>

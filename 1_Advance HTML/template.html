@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template - Advance HTML</title>
+</head>
+
+<body>
+    <!-- The <template> tag in HTML is used to store the HTML code fragments, which can be cloned and inserted in an HTML document. The content of the tag is hidden from clients being stored on the client-side. It is inserted until activated using JavaScript. Use JavaScript to get the content from a template, and add it to the web page. -->
+
+    <template id="template">
+        <div id="parent">
+
+            <p class="child">hey there</p>
+            <h1 class="child">This is under the template tag</h1>
+        </div>
+    </template>
+
+    <button onclick="run()">Click to show content</button>  
+    <button onclick="remove()">Click to show content</button>  
+    
+</body>
+<Script>
+    function run() {
+        // getting the template container
+        var t = document.getElementById("template");
+        //cloning all the contents of the template container
+        var clone = t.content.cloneNode(true);
+        //adding it to the webpage
+        document.body.appendChild(clone);
+    }
+
+    function remove(){
+        var parent = document.getElementById("parent");
+        parent.remove();
+    }
+</Script>
+</html>
