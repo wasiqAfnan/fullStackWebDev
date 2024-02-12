@@ -1,0 +1,53 @@
+.container{
+    width:100%;
+    border: 2px solid black;
+
+}
+.btn_animation{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size:30px;
+    padding:5px;
+    background-color: bisque;
+    color:rgb(22, 54, 54);
+    display: block;
+    margin:10px auto;
+}
+
+.btn_animation:hover {
+    /* Styles applied when the button is in hover state */
+
+    /* Animation applied when the button is hovered */
+    /* Choose either myAnimation1 or myAnimation2 */
+    animation-name: myAnimation2; /* Specify the name of the animation */
+    animation-duration: 5s;      /* Set the duration of the animation */
+    /* animation-iteration-count: infinite; */
+}
+
+/* Keyframes for the first animation - myAnimation1 */
+@keyframes myAnimation1 {
+    0% {
+        transform: translate(0px, 0px);
+    }
+    25% {
+        transform: translate(400px, 0px);
+    }
+    50% {
+        transform: translate(400px, 400px);
+    }
+    75% {
+        transform: translate(0px, 400px);
+    }
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+/* Keyframes for the second animation - myAnimation2 */
+@keyframes myAnimation2 {
+    25% {
+        transform: translate(600px, 0px);
+    }
+    50% {
+        transform: translate(-600px, 0px);
+    }
+}
